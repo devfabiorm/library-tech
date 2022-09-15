@@ -8,34 +8,34 @@ import {
   Put,
 } from '@nestjs/common';
 import { Livro } from './livro.model';
-import { LivrosService } from './livros.services';
+import { LivrosService } from './livros.service';
 
 @Controller('livros')
 export class LivrosController {
   constructor(private livrosService: LivrosService) {}
 
   @Get()
-  obterTodos(): Livro[] {
+  async obterTodos(): Promise<Livro[]> {
     return this.livrosService.obterTodos();
   }
 
   @Get(':id')
-  obterUm(@Param() params): Livro {
+  async obterUm(@Param() params): Promise<Livro> {
     return this.livrosService.obterUm(params.id);
   }
 
   @Post()
-  criar(@Body() produto: Livro) {
+  async criar(@Body() produto: Livro) {
     this.livrosService.criar(produto);
   }
 
   @Put()
-  alterar(@Body() produto: Livro): Livro {
+  async alterar(@Body() produto: Livro): Promise<[number]> {
     return this.livrosService.alterar(produto);
   }
 
   @Delete(':id')
-  apagar(@Param() params) {
+  async apagar(@Param() params) {
     this.livrosService.apagar(params.id);
   }
 }
